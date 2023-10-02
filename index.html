@@ -11,6 +11,16 @@
     </head>
     <body>
         Here will elements go.
+        <div class="vocabListDiv">
+            <div class="vocabControls">
+                <input placeholder="New word" id="vocabInput"/>
+                <button id="addVocabButton">Add</button>
+            </div>
+            <div id="vocabListTable" class="vocabListTable"></div>
+            <template id="vocabListRowTemplate">
+                <div class="vocabListRow"></div>
+            </template>
+        </div>
         <script src="./app.js" defer></script>
         <script>
         let isLocal = 0;

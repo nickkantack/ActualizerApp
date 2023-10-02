@@ -1,3 +1,16 @@
 body {
     font-family: Helvetica;
 }
+
+.vocabListDiv {
+    position: relative;
+    width: 100%;
+}
+
+.vocabListTable {
+    width: 100%;
+}
+
+.vocabListRow {
+    width: 100%;
+}
