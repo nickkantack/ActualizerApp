@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en_US">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <title>Actualizer App</title>
+        <link rel="stylesheet" href="./style.css" />
+        <link rel="canonical" href="https://nickkantack.github.io/ActualizerApp/"/>
+        <link rel="manifest" href="./manifest.json" />
+        <link rel="icon" href="./icon-192.png" />
+    </head>
+    <body>
+        Here will elements go.
+        <script src="./app.js" defer></script>
+        <script>
+        let isLocal = 0;
+        const xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = function() { 
+            if (xmlHttp.readyState == 4) {
+                if ("serviceWorker" in navigator) {
+                    if (xmlHttp.responseText === "1" && xmlHttp.status === 200) {
+                        navigator.serviceWorker.register("/sw.js",
+                        { scope: "/IntervalTimer/" });
+                    } else {
+                        navigator.serviceWorker.register("/AppActualizer/sw.js",
+                        { scope: "/IntervalTimer/" });
+                    }
+                }
+            }
+        }
+        xmlHttp.open("GET", "./isLocal.txt", true);
+        xmlHttp.send(null);
+        </script>
+    </body>
+</html>
