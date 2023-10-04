@@ -21,11 +21,15 @@ addVocabButton.addEventListener("click", () => {
         alert("That word is already present in the list");
         return;
     }
-    addWordToTable(vocabInput.value, true);
+    vocabInput.value = "";
+    wordListStorageCache.push(stagedWord);
+    wordListStorageCache.sort();
+    refreshTableWithCachedWords();
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(wordListStorageCache));
 });
 
 // Define utility functions
-function addWordToTable(word, saveAfterwards = false) {
+function addWordToTable(word) {
     const newRow = vocabListRowTemplate.content.cloneNode(true).querySelector(".vocabListRow");
     newRow.querySelector(".vocabWordDisplayDiv").innerHTML = word;
     newRow.querySelector(".removeVocabWord").addEventListener("click", () => {
@@ -34,13 +38,9 @@ function addWordToTable(word, saveAfterwards = false) {
         window.localStorage.setItem(STORAGE_KEY, JSON.stringify(wordListStorageCache));
     });
     vocabListTable.appendChild(newRow);
-    if (saveAfterwards) {
-        wordListStorageCache.push(word);
-        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(wordListStorageCache));
-    }
 }
 
 function refreshTableWithCachedWords() {
-    for (let i = vocabListTable.children.length - 1; i >= 0; i--) vocabListTable.remove(i);
-    for (let word of wordListStorageCache) addWordToTable(word, false);
+    for (let i = vocabListTable.children.length - 1; i >= 0; i--) vocabListTable.removeChild(vocabListTable.children[i]);
+    for (let word of wordListStorageCache) addWordToTable(word);
 }
