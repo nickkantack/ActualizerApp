@@ -3,6 +3,7 @@ const vocabInput = document.getElementById("vocabInput");
 const addVocabButton = document.getElementById("addVocabButton");
 const vocabListTable = document.getElementById("vocabListTable");
 const vocabListRowTemplate = document.getElementById("vocabListRowTemplate");
+const totalWords = document.getElementById("totalWords");
 
 // Read in vocab words from local storage
 const STORAGE_KEY = "actualizer-app-vocab-list";
@@ -43,4 +44,5 @@ function addWordToTable(word) {
 function refreshTableWithCachedWords() {
     for (let i = vocabListTable.children.length - 1; i >= 0; i--) vocabListTable.removeChild(vocabListTable.children[i]);
     for (let word of wordListStorageCache) addWordToTable(word);
+    totalWords.innerHTML = wordListStorageCache.length;
 }
