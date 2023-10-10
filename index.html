@@ -38,10 +38,10 @@
                 if ("serviceWorker" in navigator) {
                     if (xmlHttp.responseText === "1" && xmlHttp.status === 200) {
                         navigator.serviceWorker.register("/sw.js",
-                        { scope: "/IntervalTimer/" });
+                        { scope: "/ActualizerApp/" });
                     } else {
                         navigator.serviceWorker.register("/AppActualizer/sw.js",
-                        { scope: "/IntervalTimer/" });
+                        { scope: "/ActualizerApp/" });
                     }
                 }
             }
