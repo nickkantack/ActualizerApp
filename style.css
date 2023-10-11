@@ -18,6 +18,10 @@ body {
     height: 100%;
     margin: auto;
 }
+.otherLanguageDefinition {
+    font-style: italic;
+    color: #999;
+}
 .vocabListDiv {
     width: 100%;
 }
@@ -37,4 +41,12 @@ body {
     display: inline;
     margin-left: 10px;
     height: 100%;
+}
+
+#englishTranslationEntry {
+    display: none;
+}
+#singleWordView {
+    display: none;
+    width: 100%;
 }

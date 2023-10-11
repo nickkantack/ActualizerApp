@@ -10,8 +10,8 @@
         <link rel="icon" href="./icon-192.png" />
     </head>
     <body>
-        Here will elements go.
         <div class="vocabListDiv">
+            <h2>Vocab</h2>
             <div class="vocabControls">
                 <input placeholder="New word" id="vocabInput"/>
                 <button id="addVocabButton">Add</button>
@@ -27,8 +27,16 @@
                         </svg>
                     </button>
                     <div class="vocabWordDisplayDiv"></div>
+                    <button class="openWord svgButton">info</button>
                 </div>
             </template>
+        </div>
+        <div id="singleWordView">
+            <h3 id="singleWordTitle">Single word</h3>
+            <span id="singleWordTranslation" class="otherLanguageDefinition">Definition goes here</span>
+            <input id="englishTranslationEntry"/>
+            <button id="editEnglishTranslation">edit</button>
+            <button id="backToVocabList">back</button>
         </div>
         <script src="./app.js" defer></script>
         <script>
