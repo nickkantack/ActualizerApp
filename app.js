@@ -1,40 +1,10 @@
 
-const ENGLISH = "english";
 
-const vocabInput = document.getElementById("vocabInput");
-const addVocabButton = document.getElementById("addVocabButton");
-const vocabListTable = document.getElementById("vocabListTable");
-const vocabListRowTemplate = document.getElementById("vocabListRowTemplate");
-const totalWords = document.getElementById("totalWords");
 const vocabListDiv = document.querySelector(".vocabListDiv");
-const singleWordView = document.getElementById("singleWordView");
-const singleWordTitle = document.getElementById("singleWordTitle");
-const backToVocabList = document.getElementById("backToVocabList");
-const editEnglishTranslation = document.getElementById("editEnglishTranslation");
-const englishTranslationEntry = document.getElementById("englishTranslationEntry");
-const singleWordTranslation = document.getElementById("singleWordTranslation");
 
 let currentSingleSpanishWord = null;
 
-// Read in vocab words from local storage
-const STORAGE_KEY = "actualizer-app-vocab-list";
-let wordListStorageCache = window.localStorage.getItem(STORAGE_KEY) ? JSON.parse(window.localStorage.getItem(STORAGE_KEY)) : [];
-console.log(wordListStorageCache);
-
-const SPANISH_KEY_VOCAB_KEY = "spanish-key-vocab-key";
-let spanishKeyVocab = {};
-try {
-    spanishKeyVocab = window.localStorage.getItem(SPANISH_KEY_VOCAB_KEY) ? JSON.parse(window.localStorage.getItem(SPANISH_KEY_VOCAB_KEY)) : {};
-} catch (e) {
-    console.warn("Error loading vocab. Will use a blank slate.");
-}
-// Keys are strings which are spanish words
-// Values are objects with the following properties
-//   * "english" - the english translation of the word
-
-convertLegacyData();
-
-// Populate the table
+// Populate the spanish list table
 refreshTableWithCachedWords();
 
 // Set listeners
@@ -55,7 +25,6 @@ addVocabButton.addEventListener("click", () => {
 backToVocabList.addEventListener("click", showVocabListDiv);
 editEnglishTranslation.addEventListener("click", toggleEnglishDefinitionEdit);
 
-// Define utility functions
 function addWordToTable(spanishWord) {
     const newRow = vocabListRowTemplate.content.cloneNode(true).querySelector(".vocabListRow");
     newRow.querySelector(".vocabWordDisplayDiv").innerHTML = spanishWord;
@@ -79,22 +48,20 @@ function refreshTableWithCachedWords() {
     const spanishKeysInOrder = Object.keys(spanishKeyVocab);
     spanishKeysInOrder.sort();
     for (let spanishWord of spanishKeysInOrder) addWordToTable(spanishWord);
-    totalWords.innerHTML = spanishKeysInOrder.length;
-}
-
-function convertLegacyData() {
-
-    // For every list in the old primitive list of spanish words, create an entry in the spanish key vocab
-    for (let legacySpanishWordString of wordListStorageCache) {
-        if (!spanishKeyVocab.hasOwnProperty(legacySpanishWordString)) {
-            spanishKeyVocab[legacySpanishWordString] = {};
-        }
+    let dataSizeInBytes = 2 * JSON.stringify(spanishKeyVocab).length;
+    let unit = "B";
+    if (dataSizeInBytes > 1000) {
+        dataSizeInBytes /= 1000;
+        unit = "KB";
     }
-    window.localStorage.setItem(SPANISH_KEY_VOCAB_KEY, JSON.stringify(spanishKeyVocab));
-
-    // TODO once wordListStorageCache is fully deprecated, delete it here now after some checks.
-
+    if (dataSizeInBytes > 1000) {
+        dataSizeInBytes /= 1000;
+        unit = "MB";
+    }
+    const truncatedDecimal = dataSizeInBytes.toString().replace(/([^\.]*\.[^\.]{2})[0-9]+/, "$1");
+    totalWords.innerHTML = `${spanishKeysInOrder.length} words, ${truncatedDecimal} ${unit}`;
 }
+
 
 function showSingleWordView(spanishWord) {
     singleWordView.style.display = "inline";
@@ -125,8 +92,4 @@ function toggleEnglishDefinitionEdit() {
         spanishKeyVocab[currentSingleSpanishWord][ENGLISH] = englishTranslationEntry.value;
         saveSpanishKeyVocab();
     }
-}
-
-function saveSpanishKeyVocab() {
-    window.localStorage.setItem(SPANISH_KEY_VOCAB_KEY, JSON.stringify(spanishKeyVocab));
 }

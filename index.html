@@ -37,7 +37,18 @@
             <input id="englishTranslationEntry"/>
             <button id="editEnglishTranslation">edit</button>
             <button id="backToVocabList">back</button>
+            <br/>
+            <div id="sentencesTableDiv">
+                <table id="sentencesTable">
+
+                </table>
+            </div>
         </div>
+        <script src="./constants.js" defer></script>
+        <script src="./globalDynamicVariables.js" defer></script>
+        <!-- Scripts below this should not declare global scoped variables -->
+        <script src="./dataHandling.js" defer></script>
+        <!-- Scripts above this should not call methods from other scripts in the global scope -->
         <script src="./app.js" defer></script>
         <script>
         let isLocal = 0;
