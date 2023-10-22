@@ -36,18 +36,28 @@
             <span id="singleWordTranslation" class="otherLanguageDefinition">Definition goes here</span>
             <input id="englishTranslationEntry"/>
             <button id="editEnglishTranslation">edit</button>
-            <button id="backToVocabList">back</button>
+            <button id="backToVocabList" class="svgButton">
+                <svg class="buttonSvg" viewBox="0 0 100 100">
+                    <path stroke="none" fill="#666" d="M10 50L50 20V35H90V65H50V80Z"/>
+                </svg>
+            </button>
             <br/>
             <div id="sentencesTableDiv">
                 <table id="sentencesTable">
-
+                    <tbody>
+                        <tr id="addSentenceRow"><td><button id="addSentence">Add sentence</button></td></tr>
+                    </tbody>
                 </table>
             </div>
         </div>
+        <template id="sentencesTextareaTemplate">
+            <textarea placeholder="Write a sentence here"></textarea>
+        </template>
         <script src="./constants.js" defer></script>
         <script src="./globalDynamicVariables.js" defer></script>
         <!-- Scripts below this should not declare global scoped variables -->
         <script src="./dataHandling.js" defer></script>
+        <script src="./singleWordView.js" defer></script>
         <!-- Scripts above this should not call methods from other scripts in the global scope -->
         <script src="./app.js" defer></script>
         <script>

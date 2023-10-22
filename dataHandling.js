@@ -11,6 +11,7 @@ try {
 // Keys are strings which are spanish words
 // Values are objects with the following properties
 //   * "english" - the english translation of the word
+//   * "sentences" - and array of spanish sentences (strings) that use the word
 
 convertLegacyData();
 

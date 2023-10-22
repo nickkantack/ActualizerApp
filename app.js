@@ -19,7 +19,7 @@ addVocabButton.addEventListener("click", () => {
     vocabInput.value = "";
     spanishKeyVocab[stagedWord] = {ENGLISH:""};
     refreshTableWithCachedWords();
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(wordListStorageCache));
+    window.localStorage.setItem(SPANISH_KEY_VOCAB_KEY, JSON.stringify(spanishKeyVocab));
 });
 
 backToVocabList.addEventListener("click", showVocabListDiv);
@@ -64,15 +64,20 @@ function refreshTableWithCachedWords() {
 
 
 function showSingleWordView(spanishWord) {
+    cachedScrollHeightOfSpanishVocab = document.documentElement.scrollTop || document.body.scrollTop
     singleWordView.style.display = "inline";
     vocabListDiv.style.display = "none";
     singleWordTitle.innerHTML = spanishWord;
     const englishDefinition = spanishKeyVocab[spanishWord][ENGLISH];
     singleWordView.querySelector(".otherLanguageDefinition").innerHTML = englishDefinition || "no translation saved";
     currentSingleSpanishWord = spanishWord;
+    // TODO populate the table with stored sentences
 }
 
 function showVocabListDiv() {
+    setTimeout(() => {
+        document.documentElement.scrollTop = document.body.scrollTop = cachedScrollHeightOfSpanishVocab;
+    }, 250);
     singleWordView.style.display = "none";
     vocabListDiv.style.display = "inline";
     editEnglishTranslation.innerHTML = "edit";

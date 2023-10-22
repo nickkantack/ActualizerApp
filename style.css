@@ -1,14 +1,20 @@
 body {
     font-family: Helvetica;
 }
+tr {
+    width: 100%;
+}
+textarea {
+    font-family: Helvetica;
+}
 
 .removeVocabWord {
     position: relative;
+    width: 1.2em;
+    height: 1.2em;
 }
 .svgButton {
     display: inline;
-    width: 1.2em;
-    height: 1.2em;
     padding: 0;
     background: none;
     border: none;
@@ -43,8 +49,29 @@ body {
     height: 100%;
 }
 
+#addSentence {
+    width: 100%;
+}
+#backToVocabList {
+    position: fixed;
+    left: 5px;
+    top: 5px;
+    width: 3em;
+    height: 3em;
+}
 #englishTranslationEntry {
     display: none;
+}
+#sentencesTable {
+    width: 100%;
+}
+#sentencesTable textarea {
+    width: 100%;
+    height: 100%; 
+    box-sizing: border-box;
+}
+#singleWordTitle {
+    margin-left: 60px;
 }
 #singleWordView {
     display: none;
