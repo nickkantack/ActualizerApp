@@ -17,33 +17,60 @@
             <h2>Vocab</h2>
             <div class="vocabControls">
                 <input placeholder="New word" id="vocabInput"/>
-                <button id="addVocabButton">Add</button>
+                <button id="addVocabButton" class="svgButton">
+                    <svg class="buttonSvg" viewBox="0 0 100 100">
+                        <path stroke="#444" fill="none" stroke-width="20px" d="M30 50L50 70L80 20" />
+                    </svg>
+                </button>
                 <div id="totalWords">X</div>
             </div>
             <div id="vocabListTable" class="vocabListTable"></div>
             <template id="vocabListRowTemplate">
                 <div class="vocabListRow">
-                    <button class="removeVocabWord svgButton">
-                        <svg class="buttonSvg" viewBox="0 0 100 100">
-                            <path stroke="#444" stroke-width="20px" d="M20 20 L80 80"/>
-                            <path stroke="#444" stroke-width="20px" d="M20 80 L80 20"/>
-                        </svg>
-                    </button>
-                    <div class="vocabWordDisplayDiv"></div>
-                    <button class="openWord svgButton">info</button>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td class="svgWidthTd">
+                                    <button class="removeVocabWord svgButton">
+                                        <svg class="buttonSvg" viewBox="0 0 100 100">
+                                            <path stroke="#444" stroke-width="20px" d="M20 20 L80 80"/>
+                                            <path stroke="#444" stroke-width="20px" d="M20 80 L80 20"/>
+                                        </svg>
+                                    </button>
+                                </td>
+                                <td class="vocabWordDisplayCell">
+                                    <div class="vocabWordDisplayDiv"></div>
+                                </td>
+                                <td class="svgWidthTd">
+                                    stats
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </template>
         </div>
         <div id="singleWordView">
             <h3 id="singleWordTitle">Single word</h3>
-            <span id="singleWordTranslation" class="otherLanguageDefinition">Definition goes here</span>
-            <input id="englishTranslationEntry"/>
-            <button id="editEnglishTranslation">edit</button>
-            <button id="backToVocabList" class="svgButton">
-                <svg class="buttonSvg" viewBox="0 0 100 100">
-                    <path stroke="none" fill="#666" d="M10 50L50 20V35H90V65H50V80Z"/>
-                </svg>
-            </button>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <span id="singleWordTranslation" class="otherLanguageDefinition">Definition goes here</span>
+                            <input id="englishTranslationEntry"/>
+                        </td>
+                        <td id="editDefinitionCell">
+                            <button id="editEnglishTranslation">edit</button>
+                            <button id="backToVocabList" class="svgButton">
+                                <svg class="buttonSvg" viewBox="0 0 100 100">
+                                    <path stroke="none" fill="#666" d="M10 50L50 20V35H90V65H50V80Z"/>
+                                </svg>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br/>
             <br/>
             <div id="sentencesTableDiv">
                 <table id="sentencesTable">

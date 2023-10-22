@@ -15,6 +15,7 @@ addVocabButton.addEventListener("click", () => {
         alert("That word is already present in the list");
         return;
     }
+    if (stagedWord === "") return;
     vocabInput.value = "";
     spanishKeyVocab[stagedWord] = {ENGLISH:""};
     refreshTableWithCachedWords();
@@ -49,7 +50,7 @@ function addWordToTable(spanishWord) {
         console.log("Time is up");
     });
     // Attach listener for the info button
-    newRow.querySelector(".openWord").addEventListener("click", () => {
+    newRow.querySelector(".vocabWordDisplayCell").addEventListener("click", () => {
         showSingleWordView(spanishWord);
     });
     vocabListTable.appendChild(newRow);
@@ -99,6 +100,7 @@ function showVocabListDiv() {
     singleWordView.style.display = "none";
     vocabListDiv.style.display = "inline";
     editEnglishTranslation.innerHTML = "edit";
+    singleWordTranslation.style.display = "inline";
     englishTranslationEntry.style.display = "none";
     // For each sentence in the sentence table, construct an new array for the sentences to save, then save
     const newSentencesArrayForThisWord = [];
@@ -115,10 +117,12 @@ function toggleEnglishDefinitionEdit() {
     if (editEnglishTranslation.innerHTML === "edit") {
         editEnglishTranslation.innerHTML = "save";
         englishTranslationEntry.style.display = "inline";
+        singleWordTranslation.style.display = "none";
         englishTranslationEntry.value = spanishKeyVocab[currentSingleSpanishWord][ENGLISH] || "";
     } else {
         editEnglishTranslation.innerHTML = "edit";
         englishTranslationEntry.style.display = "none";
+        singleWordTranslation.style.display = "inline";
         singleWordTranslation.innerHTML = englishTranslationEntry.value;
         // change the local data cache
         spanishKeyVocab[currentSingleSpanishWord][ENGLISH] = englishTranslationEntry.value;
