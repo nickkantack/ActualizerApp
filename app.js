@@ -5,6 +5,7 @@ const vocabListDiv = document.querySelector(".vocabListDiv");
 // Populate the spanish list table
 refreshTableWithCachedWords();
 
+
 // Set listeners
 addVocabButton.addEventListener("click", () => {
     // TODO perform validation on the word

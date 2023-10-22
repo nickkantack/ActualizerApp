@@ -1,5 +1,5 @@
 // The version of the cache.
-const VERSION = "v3";
+const VERSION = "v4";
 
 // The name of the cache
 const CACHE_NAME = `actualizer-app-${VERSION}`;
@@ -9,6 +9,7 @@ const APP_STATIC_RESOURCES = [
   "/ActualizerApp/manifest.json",
   "/ActualizerApp/index.html",
   "/ActualizerApp/app.js",
+  "/ActualizerApp/addHighlightedWord.js",
   "/ActualizerApp/constants.js",
   "/ActualizerApp/dataHandling.js",
   "/ActualizerApp/globalDynamicVariables.js",
