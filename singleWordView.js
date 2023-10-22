@@ -1,5 +1,7 @@
 
-addSentenceButton.addEventListener("click", addSentence);
+addSentenceButton.addEventListener("click", () => {
+    addSentence();
+});
 
 function addSentence(sentence) {
     const newRow = sentencesTable.insertRow(sentencesTable.rows.length - 1);
@@ -22,6 +24,7 @@ function addSentence(sentence) {
 
     if (sentence) {
         textArea.value = sentence;
+        textArea.classList.add("unfocusedTextArea");
     } else {
         textArea.focus();
     }
@@ -32,7 +35,7 @@ This method is used to remove all of the sentence textareas when navigating away
 so that when it is loaded again it can assume the table is empty.
 */
 function clearSentences() {
-    for (let i = sentencesTable.rows.length; i >= 0; i--) {
-        sentencesTable.deleteRow(i);
+    for (let i = sentencesTable.rows.length - 2; i >= 0; i--) {
+        sentencesTable.deleteRow(0);
     }
 }
