@@ -20,6 +20,7 @@ addVocabButton.addEventListener("click", () => {
     spanishKeyVocab[stagedWord] = {ENGLISH:""};
     refreshTableWithCachedWords();
     window.localStorage.setItem(SPANISH_KEY_VOCAB_KEY, JSON.stringify(spanishKeyVocab));
+    showSingleWordView(stagedWord);
 });
 
 backToVocabList.addEventListener("click", showVocabListDiv);
@@ -53,6 +54,8 @@ function addWordToTable(spanishWord) {
     newRow.querySelector(".vocabWordDisplayCell").addEventListener("click", () => {
         showSingleWordView(spanishWord);
     });
+    newRow.querySelector(".statsClass").innerHTML = spanishKeyVocab[spanishWord].hasOwnProperty(SENTENCES) ? 
+        spanishKeyVocab[spanishWord][SENTENCES].length : 0;
     vocabListTable.appendChild(newRow);
 }
 
@@ -96,7 +99,7 @@ function showSingleWordView(spanishWord) {
 function showVocabListDiv() {
     setTimeout(() => {
         document.documentElement.scrollTop = document.body.scrollTop = cachedScrollHeightOfSpanishVocab;
-    }, 250);
+    }, 100);
     singleWordView.style.display = "none";
     vocabListDiv.style.display = "inline";
     editEnglishTranslation.innerHTML = "edit";

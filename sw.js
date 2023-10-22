@@ -1,5 +1,5 @@
 // The version of the cache.
-const VERSION = "v5";
+const VERSION = "v6";
 
 // The name of the cache
 const CACHE_NAME = `actualizer-app-${VERSION}`;
@@ -17,6 +17,7 @@ const APP_STATIC_RESOURCES = [
   "/ActualizerApp/singleWordView.js",
   "/ActualizerApp/icon-192.png",
   "/ActualizerApp/icon-512.png",
+  "/ActualizerApp/isLocal.txt",
   "/ActualizerApp/style.css",
 ];
 

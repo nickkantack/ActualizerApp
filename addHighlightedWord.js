@@ -16,6 +16,6 @@ document.addEventListener("mouseup", () => {
 });
 
 addHighlightedWordButton.addEventListener("click", () => {
-    addWordToTable(wordSuggestionSpan.innerHTML);
+    addWordToTable(wordSuggestionSpan.innerHTML, true);
     addHighlightedWord.style.display = "none";
 });
