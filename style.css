@@ -7,11 +7,38 @@ tr {
 textarea {
     font-family: Helvetica;
 }
+path {
+    transition: 0.25s;
+}
+svg {
+    transition: 0.25s;
+}
 
+.buttonSvg {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+}
+.deleteButtonActive {
+    stroke: #FFF;
+    background-color: #F00;
+}
+.focusedTextArea {
+
+}
+.unfocusedTextArea {
+    color: #666;
+    background-color: #DDD;
+    font-style: italic;
+}
+.otherLanguageDefinition {
+    font-style: italic;
+    color: #999;
+}
 .removeVocabWord {
     position: relative;
-    width: 1.2em;
-    height: 1.2em;
+    width: 1.6em;
+    height: 1.6em;
 }
 .svgButton {
     display: inline;
@@ -19,15 +46,6 @@ textarea {
     background: none;
     border: none;
 }   
-.buttonSvg {
-    width: 100%;
-    height: 100%;
-    margin: auto;
-}
-.otherLanguageDefinition {
-    font-style: italic;
-    color: #999;
-}
 .vocabListDiv {
     width: 100%;
 }
@@ -40,7 +58,7 @@ textarea {
 
 .vocabListRow {
     width: 100%;
-    padding: 15px;
+    padding: 10px;
     border-bottom: 2px solid #CCC;
 }
 .vocabWordDisplayDiv {

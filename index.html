@@ -22,8 +22,8 @@
                 <div class="vocabListRow">
                     <button class="removeVocabWord svgButton">
                         <svg class="buttonSvg" viewBox="0 0 100 100">
-                            <path stroke="#444" stroke-width="20px" d="M0 0 L100 100"/>
-                            <path stroke="#444" stroke-width="20px" d="M0 100 L100 0"/>
+                            <path stroke="#444" stroke-width="20px" d="M20 20 L80 80"/>
+                            <path stroke="#444" stroke-width="20px" d="M20 80 L80 20"/>
                         </svg>
                     </button>
                     <div class="vocabWordDisplayDiv"></div>
@@ -45,7 +45,7 @@
             <div id="sentencesTableDiv">
                 <table id="sentencesTable">
                     <tbody>
-                        <tr id="addSentenceRow"><td><button id="addSentence">Add sentence</button></td></tr>
+                        <tr id="addSentenceRow"><td><button id="addSentenceButton">Add sentence</button></td></tr>
                     </tbody>
                 </table>
             </div>
@@ -56,6 +56,7 @@
         <script src="./constants.js" defer></script>
         <script src="./globalDynamicVariables.js" defer></script>
         <!-- Scripts below this should not declare global scoped variables -->
+        <script src="./reclickListener.js" defer></script>
         <script src="./dataHandling.js" defer></script>
         <script src="./singleWordView.js" defer></script>
         <!-- Scripts above this should not call methods from other scripts in the global scope -->

@@ -12,6 +12,8 @@ const APP_STATIC_RESOURCES = [
   "/ActualizerApp/constants.js",
   "/ActualizerApp/dataHandling.js",
   "/ActualizerApp/globalDynamicVariables.js",
+  "/ActualizerApp/reclickListener.js",
+  "/ActualizerApp/singleWordView.js",
   "/ActualizerApp/icon-192.png",
   "/ActualizerApp/icon-512.png",
   "/ActualizerApp/style.css",

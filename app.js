@@ -2,8 +2,6 @@
 
 const vocabListDiv = document.querySelector(".vocabListDiv");
 
-let currentSingleSpanishWord = null;
-
 // Populate the spanish list table
 refreshTableWithCachedWords();
 
@@ -28,14 +26,28 @@ editEnglishTranslation.addEventListener("click", toggleEnglishDefinitionEdit);
 function addWordToTable(spanishWord) {
     const newRow = vocabListRowTemplate.content.cloneNode(true).querySelector(".vocabListRow");
     newRow.querySelector(".vocabWordDisplayDiv").innerHTML = spanishWord;
-    newRow.querySelector(".removeVocabWord").addEventListener("click", () => {
+    // Attach the reclick listener to the delete button
+    addReclickListener(newRow.querySelector(".removeVocabWord"), () => {
+        console.log("Need to tap again soon!");   
+        newRow.querySelector(".removeVocabWord").querySelector("svg").classList.add("deleteButtonActive");
+        for (let path of newRow.querySelector(".removeVocabWord").querySelectorAll("path")) {
+            path.classList.add("deleteButtonActive");
+        }
+    }, () => {
         wordListStorageCache.splice(wordListStorageCache.indexOf(spanishWord), 1);
         delete spanishKeyVocab[spanishWord];
         vocabListTable.removeChild(newRow);
         window.localStorage.setItem(STORAGE_KEY, JSON.stringify(wordListStorageCache));
         window.localStorage.setItem(SPANISH_KEY_VOCAB_KEY, JSON.stringify(spanishKeyVocab));
         totalWords.innerHTML = Object.keys(spanishKeyVocab).length;
+    }, 1000, () => {
+        newRow.querySelector(".removeVocabWord").querySelector("svg").classList.remove("deleteButtonActive");
+        for (let path of newRow.querySelector(".removeVocabWord").querySelectorAll("path")) {
+            path.classList.remove("deleteButtonActive");
+        }
+        console.log("Time is up");
     });
+    // Attach listener for the info button
     newRow.querySelector(".openWord").addEventListener("click", () => {
         showSingleWordView(spanishWord);
     });
@@ -72,6 +84,11 @@ function showSingleWordView(spanishWord) {
     singleWordView.querySelector(".otherLanguageDefinition").innerHTML = englishDefinition || "no translation saved";
     currentSingleSpanishWord = spanishWord;
     // TODO populate the table with stored sentences
+    if (spanishKeyVocab[currentSingleSpanishWord][SENTENCES]) {
+        for (let sentence of spanishKeyVocab[currentSingleSpanishWord][SENTENCES]) {
+            addSentence(sentence);
+        }
+    }
 }
 
 function showVocabListDiv() {
@@ -82,6 +99,15 @@ function showVocabListDiv() {
     vocabListDiv.style.display = "inline";
     editEnglishTranslation.innerHTML = "edit";
     englishTranslationEntry.style.display = "none";
+    // For each sentence in the sentence table, construct an new array for the sentences to save, then save
+    const newSentencesArrayForThisWord = [];
+    for (let textArea of sentencesTable.querySelectorAll("textarea")) {
+        if (textArea.value !== "") newSentencesArrayForThisWord.push(textArea.value);
+    }
+    spanishKeyVocab[currentSingleSpanishWord][SENTENCES] = newSentencesArrayForThisWord;
+    saveSpanishKeyVocab();
+    currentSingleSpanishWord = null;
+    clearSentences();
 }
 
 function toggleEnglishDefinitionEdit() {
