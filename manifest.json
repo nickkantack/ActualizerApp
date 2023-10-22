@@ -2,8 +2,8 @@
   "name": "Actualizer App",
   "short_name": "Actualizer App",
   "description": "One stop app for mental training",
-  "start_url": "/Actualizer/index.html",
-  "scope": "/Actualizer/",
+  "start_url": "/ActualizerApp/index.html",
+  "scope": "/ActualizerApp/",
   "icons": [
     {
       "src": "./icon-512.png",
