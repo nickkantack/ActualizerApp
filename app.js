@@ -65,6 +65,11 @@ function refreshTableWithCachedWords() {
     const spanishKeysInOrder = Object.keys(spanishKeyVocab);
     spanishKeysInOrder.sort();
     for (let spanishWord of spanishKeysInOrder) addWordToTable(spanishWord);
+    refreshStatistics();
+}
+
+function refreshStatistics() {
+    // Update top level statistics
     let dataSizeInBytes = 2 * JSON.stringify(spanishKeyVocab).length;
     let unit = "B";
     if (dataSizeInBytes > 1000) {
@@ -76,9 +81,14 @@ function refreshTableWithCachedWords() {
         unit = "MB";
     }
     const truncatedDecimal = dataSizeInBytes.toString().replace(/([^\.]*\.[^\.]{2})[0-9]+/, "$1");
-    totalWords.innerHTML = `${spanishKeysInOrder.length} words, ${truncatedDecimal} ${unit}`;
+    totalWords.innerHTML = `${Object.keys(spanishKeyVocab).length} words, ${truncatedDecimal} ${unit}`;
+    // Update stats in each row
+    for (let vocabDivInTable of vocabListTable.querySelectorAll(".vocabListRow")) {
+        const spanishWord = vocabDivInTable.querySelector(".vocabWordDisplayDiv").innerHTML;
+        const sentenceCount = spanishKeyVocab[spanishWord].hasOwnProperty(SENTENCES) ? spanishKeyVocab[spanishWord][SENTENCES].length : 0;
+        vocabDivInTable.querySelector(".statsClass").innerHTML = sentenceCount;
+    }
 }
-
 
 function showSingleWordView(spanishWord) {
     cachedScrollHeightOfSpanishVocab = document.documentElement.scrollTop || document.body.scrollTop
@@ -114,6 +124,7 @@ function showVocabListDiv() {
     saveSpanishKeyVocab();
     currentSingleSpanishWord = null;
     clearSentences();
+    refreshStatistics();
 }
 
 function toggleEnglishDefinitionEdit() {
