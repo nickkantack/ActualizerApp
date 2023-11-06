@@ -22,6 +22,7 @@
                         <path stroke="#444" fill="none" stroke-width="20px" d="M30 50L50 70L80 20" />
                     </svg>
                 </button>
+                <button id="startQuizButton">Quiz</button>
                 <div id="totalWords">X</div>
             </div>
             <div id="vocabListTable" class="vocabListTable"></div>
@@ -80,6 +81,24 @@
                 </table>
             </div>
         </div>
+        <div id="quizDiv">
+            <button id="quizBackButton">Back</button>
+            <div id="quizPrompt">Prompt</div>
+            <div id="quizButtonTray">
+                <button id="quizButtonAdvanceFast" class="svgButton">
+                    <svg class="buttonSvg" viewBox="0 0 100 100 ">
+                        <path stroke="none" fill="#393" d="M10 100A10,10 0 0 1 0,90 V10A10,10 0 0 1 10,0 H90A10,10 0 0 1 100,10 V90A10,10 0 0 1 90,100 Z"/>
+                        <path stroke="none" fill="#FFF" d="M20 57A7,7 0 0 1 30 47 L47.5 67 L70 17A7,7 0 0 1 80 27 L50 87 Z"/>
+                    </svg>
+                </button>
+                <button id="quizButtonAdvanceSlow" class="svgButton">
+                    <svg class="buttonSvg" viewBox="0 0 100 100">
+                        <path stroke="none" fill="#993" d="M10 100A10,10 0 0 1 0,90 V10A10,10 0 0 1 10,0 H90A10,10 0 0 1 100,10 V90A10,10 0 0 1 90,100 Z"/>
+                        <path stroke="none" fill="#FFF" d="M20 75 V25A6,6 0 0 1 30,20 L80 50 L30,80A6,6 0 0 1 20,75"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
         <template id="sentencesTextareaTemplate">
             <textarea placeholder="Write a sentence here"></textarea>
         </template>
@@ -90,6 +109,7 @@
         <script src="./reclickListener.js" defer></script>
         <script src="./dataHandling.js" defer></script>
         <script src="./singleWordView.js" defer></script>
+        <script src="./quiz.js" defer></script>
         <!-- Scripts above this should not call methods from other scripts in the global scope -->
         <script src="./app.js" defer></script>
         <script>

@@ -9,3 +9,5 @@ To run the server locally,
 1. Run `python3 -m http.server`
 
 Note that in local development it is expected to get an error message in the browser from the service worker to the effect `sw.js:1 Uncaught (in promise) TypeError: Failed to execute 'addAll' on 'Cache': Request failed`. Adding files to the cache is only needed when the app is pulled from a remote server, but is not needed during local development (we are ok with the service worker having to go to the local server for every file load instead of the cache).
+
+/Users/kantackn/.nvm/versions/node/v18.18.2/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin:/Users/kantackn/.toolbox/bin:/Users/kantackn/Library/Python/3.8/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Users/kantackn/Library/Application Support/JetBrains/Toolbox/scripts
