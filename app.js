@@ -26,6 +26,10 @@ addVocabButton.addEventListener("click", () => {
 backToVocabList.addEventListener("click", showVocabListDiv);
 editEnglishTranslation.addEventListener("click", toggleEnglishDefinitionEdit);
 
+graduateButton.addEventListener("click", () => {
+    graduateWord(currentSingleSpanishWord);
+});
+
 function addWordToTable(spanishWord) {
     const newRow = vocabListRowTemplate.content.cloneNode(true).querySelector(".vocabListRow");
     newRow.querySelector(".vocabWordDisplayDiv").innerHTML = spanishWord;
@@ -62,7 +66,7 @@ function addWordToTable(spanishWord) {
 function refreshTableWithCachedWords() {
     for (let i = vocabListTable.children.length - 1; i >= 0; i--) vocabListTable.removeChild(vocabListTable.children[i]);
     // TODO create a list of spanishWordKeys and order them alphabetically
-    const spanishKeysInOrder = Object.keys(spanishKeyVocab);
+    const spanishKeysInOrder = [...Object.keys(spanishKeyVocab)].filter(x => !spanishKeyVocab[x].hasOwnProperty("g"));
     spanishKeysInOrder.sort();
     for (let spanishWord of spanishKeysInOrder) addWordToTable(spanishWord);
     refreshStatistics();
@@ -109,6 +113,16 @@ function showSingleWordView(spanishWord) {
     }
     const quizSuccessesCount = (spanishKeyVocab[currentSingleSpanishWord].times || []).filter(x => x <= MILLIS_TO_GRADUATE).length;
     quizResults.innerHTML = `Quiz successes: ${quizSuccessesCount}/${MAX_TIME_QUEUE_LENGTH}`;
+    showGraduateButtonIfAppropriate();
+}
+
+function showGraduateButtonIfAppropriate() {
+    const quizSuccessesCount = (spanishKeyVocab[currentSingleSpanishWord].times || []).filter(x => x <= MILLIS_TO_GRADUATE).length;
+    if (quizSuccessesCount >= MAX_TIME_QUEUE_LENGTH && spanishKeyVocab[currentSingleSpanishWord][SENTENCES].length >= NUM_SENTENCES_REQUIRED) {
+        graduateButton.style.display = "inline";
+    } else {
+        graduateButton.style.display = "none";
+    }
 }
 
 function showVocabListDiv() {
@@ -121,15 +135,21 @@ function showVocabListDiv() {
     singleWordTranslation.style.display = "inline";
     englishTranslationEntry.style.display = "none";
     // For each sentence in the sentence table, construct an new array for the sentences to save, then save
+    saveCurrentSentences();
+    currentSingleSpanishWord = null;
+    clearSentences();
+    refreshStatistics();
+}
+
+function saveCurrentSentences() {
     const newSentencesArrayForThisWord = [];
     for (let textArea of sentencesTable.querySelectorAll("textarea")) {
         if (textArea.value !== "") newSentencesArrayForThisWord.push(textArea.value);
     }
     spanishKeyVocab[currentSingleSpanishWord][SENTENCES] = newSentencesArrayForThisWord;
+    sentenceCount.innerHTML = `Sentence count: ${spanishKeyVocab[currentSingleSpanishWord][SENTENCES].length}/${NUM_SENTENCES_REQUIRED}`;
     saveSpanishKeyVocab();
-    currentSingleSpanishWord = null;
-    clearSentences();
-    refreshStatistics();
+    showGraduateButtonIfAppropriate();
 }
 
 function toggleEnglishDefinitionEdit() {

@@ -118,6 +118,9 @@ svg {
 #englishTranslationEntry {
     display: none;
 }
+#graduateButton {
+    display: none;
+}
 #quizBackButton {
     position: absolute;
     left: 10px;
@@ -169,8 +172,14 @@ svg {
     height: 100%; 
     box-sizing: border-box;
 }
+#singleWordHeaderTable {
+    width: unset;
+}
 #singleWordTitle {
+    display: inline;
+    height: 35px;
     margin-left: 60px;
+    margin-right: 10px;
 }
 #singleWordView {
     display: none;

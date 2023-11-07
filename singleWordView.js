@@ -20,6 +20,7 @@ function addSentence(sentence) {
             textArea.classList.remove("focusedTextArea");
             textArea.classList.add("unfocusedTextArea");
         }
+        saveCurrentSentences();
     });
 
     if (sentence) {
