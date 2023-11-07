@@ -100,10 +100,15 @@ function showSingleWordView(spanishWord) {
     currentSingleSpanishWord = spanishWord;
     // TODO populate the table with stored sentences
     if (spanishKeyVocab[currentSingleSpanishWord][SENTENCES]) {
+        sentenceCount.innerHTML = `Sentence count: ${spanishKeyVocab[currentSingleSpanishWord][SENTENCES].length}/${NUM_SENTENCES_REQUIRED}`;
         for (let sentence of spanishKeyVocab[currentSingleSpanishWord][SENTENCES]) {
             addSentence(sentence);
         }
+    } else {
+        sentenceCount.innerHTML = `Sentence count: 0/${NUM_SENTENCES_REQUIRED}`;
     }
+    const quizSuccessesCount = (spanishKeyVocab[currentSingleSpanishWord].times || []).filter(x => x <= MILLIS_TO_GRADUATE).length;
+    quizResults.innerHTML = `Quiz successes: ${quizSuccessesCount}/${MAX_TIME_QUEUE_LENGTH}`;
 }
 
 function showVocabListDiv() {

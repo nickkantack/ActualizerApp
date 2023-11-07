@@ -33,3 +33,10 @@ function convertLegacyData() {
 function saveSpanishKeyVocab() {
     window.localStorage.setItem(SPANISH_KEY_VOCAB_KEY, JSON.stringify(spanishKeyVocab));
 }
+
+function graduateWord(word) {
+    if (spanishKeyVocab.hasOwnProperty(word)) {
+        delete spanishKeyVocab[word].times;
+        delete spanishKeyVocab[word][SENTENCES];
+    }
+}
