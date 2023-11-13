@@ -66,7 +66,7 @@ function addWordToTable(spanishWord) {
 function refreshTableWithCachedWords() {
     for (let i = vocabListTable.children.length - 1; i >= 0; i--) vocabListTable.removeChild(vocabListTable.children[i]);
     // TODO create a list of spanishWordKeys and order them alphabetically
-    const spanishKeysInOrder = [...Object.keys(spanishKeyVocab)].filter(x => !spanishKeyVocab[x].hasOwnProperty("g"));
+    const spanishKeysInOrder = [...Object.keys(spanishKeyVocab)].filter(x => !spanishKeyVocab[x].g);
     spanishKeysInOrder.sort();
     for (let spanishWord of spanishKeysInOrder) addWordToTable(spanishWord);
     refreshStatistics();
