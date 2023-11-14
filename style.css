@@ -30,6 +30,9 @@ svg {
 .focusedTextArea {
 
 }
+.graduationEligible {
+    background: #393;
+}
 .greenBackground {
     background: #393;
 }
@@ -106,9 +109,7 @@ svg {
     height: 3em;
 }
 #backToVocabList {
-    position: fixed;
-    left: 5px;
-    top: 5px;
+    margin-right: 10px;
     width: 3em;
     height: 3em;
 }
@@ -133,6 +134,7 @@ svg {
 #quizButtonAdvanceFast {
     width: 100px;
     height: 100px;
+    transition: 0.12s;
 }
 #quizButtonAdvanceSlow {
     display: none;
@@ -161,6 +163,7 @@ svg {
     top: 25%;
     width: 80%;
     left: 10%;
+    font-size: 4vw;
     text-align: center;
     transform: translate(0%, -50%);
 }
@@ -173,13 +176,12 @@ svg {
     box-sizing: border-box;
 }
 #singleWordHeaderTable {
-    width: unset;
+    width: 100%;
+    box-sizing: border-box;
 }
 #singleWordTitle {
     display: inline;
     height: 35px;
-    margin-left: 60px;
-    margin-right: 10px;
 }
 #singleWordView {
     display: none;

@@ -39,8 +39,7 @@ function graduateWord(word) {
         delete spanishKeyVocab[word].times;
         delete spanishKeyVocab[word][SENTENCES];
     }
-    // Having the property g is the indication of being graduated (it's storage efficient)
-    spanishKeyVocab[word].g = "g";
+    delete spanishKeyVocab[word];
     saveSpanishKeyVocab();
     refreshTableWithCachedWords();
     showVocabListDiv();

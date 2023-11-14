@@ -21,9 +21,16 @@ addVocabButton.addEventListener("click", () => {
     refreshTableWithCachedWords();
     window.localStorage.setItem(SPANISH_KEY_VOCAB_KEY, JSON.stringify(spanishKeyVocab));
     showSingleWordView(stagedWord);
+    // Since this is the first time we're adding the word, focus the defintion input and make sure it's visible
+    if (editEnglishTranslation.innerHTML === "edit") toggleEnglishDefinitionEdit();
 });
 
-backToVocabList.addEventListener("click", showVocabListDiv);
+backToVocabList.addEventListener("click", () => {
+    // Whatever's in the definition edit if we're editing, just save it
+    if (editEnglishTranslation.innerHTML = "save") toggleEnglishDefinitionEdit();
+    // TODO consider doing the same for newly added sentences
+    showVocabListDiv();
+});
 editEnglishTranslation.addEventListener("click", toggleEnglishDefinitionEdit);
 
 graduateButton.addEventListener("click", () => {
@@ -46,7 +53,7 @@ function addWordToTable(spanishWord) {
         vocabListTable.removeChild(newRow);
         window.localStorage.setItem(STORAGE_KEY, JSON.stringify(wordListStorageCache));
         window.localStorage.setItem(SPANISH_KEY_VOCAB_KEY, JSON.stringify(spanishKeyVocab));
-        totalWords.innerHTML = Object.keys(spanishKeyVocab).length;
+        refreshStatistics();
     }, 1000, () => {
         newRow.querySelector(".removeVocabWord").querySelector("svg").classList.remove("deleteButtonActive");
         for (let path of newRow.querySelector(".removeVocabWord").querySelectorAll("path")) {
@@ -60,13 +67,16 @@ function addWordToTable(spanishWord) {
     });
     newRow.querySelector(".statsClass").innerHTML = spanishKeyVocab[spanishWord].hasOwnProperty(SENTENCES) ? 
         spanishKeyVocab[spanishWord][SENTENCES].length : 0;
+    // Style the row as a graduatable word if so
+    if (isWordGraduationEligible(spanishWord)) newRow.querySelector(".vocabWordDisplayDiv").classList.add("graduationEligible");
+
     vocabListTable.appendChild(newRow);
 }
 
 function refreshTableWithCachedWords() {
     for (let i = vocabListTable.children.length - 1; i >= 0; i--) vocabListTable.removeChild(vocabListTable.children[i]);
     // TODO create a list of spanishWordKeys and order them alphabetically
-    const spanishKeysInOrder = [...Object.keys(spanishKeyVocab)].filter(x => !spanishKeyVocab[x].g);
+    const spanishKeysInOrder = Object.keys(spanishKeyVocab);
     spanishKeysInOrder.sort();
     for (let spanishWord of spanishKeysInOrder) addWordToTable(spanishWord);
     refreshStatistics();
@@ -91,6 +101,11 @@ function refreshStatistics() {
         const spanishWord = vocabDivInTable.querySelector(".vocabWordDisplayDiv").innerHTML;
         const sentenceCount = spanishKeyVocab[spanishWord].hasOwnProperty(SENTENCES) ? spanishKeyVocab[spanishWord][SENTENCES].length : 0;
         vocabDivInTable.querySelector(".statsClass").innerHTML = sentenceCount;
+        if (isWordGraduationEligible(spanishWord)) { 
+            vocabDivInTable.classList.add("graduationEligible");
+        } else {
+            vocabDivInTable.classList.remove("graduationEligible");
+        }
     }
 }
 
@@ -117,12 +132,16 @@ function showSingleWordView(spanishWord) {
 }
 
 function showGraduateButtonIfAppropriate() {
-    const quizSuccessesCount = (spanishKeyVocab[currentSingleSpanishWord].times || []).filter(x => x <= MILLIS_TO_GRADUATE).length;
-    if (quizSuccessesCount >= MAX_TIME_QUEUE_LENGTH && spanishKeyVocab[currentSingleSpanishWord][SENTENCES].length >= NUM_SENTENCES_REQUIRED) {
+    if (isWordGraduationEligible(currentSingleSpanishWord)) {
         graduateButton.style.display = "inline";
     } else {
         graduateButton.style.display = "none";
     }
+}
+
+function isWordGraduationEligible(spanishWord) {
+    const quizSuccessesCount = (spanishKeyVocab[spanishWord].times || []).filter(x => x <= MILLIS_TO_GRADUATE).length;
+    return quizSuccessesCount >= MAX_TIME_QUEUE_LENGTH && spanishKeyVocab[spanishWord][SENTENCES].length >= NUM_SENTENCES_REQUIRED;
 }
 
 function showVocabListDiv() {
@@ -158,6 +177,7 @@ function toggleEnglishDefinitionEdit() {
         englishTranslationEntry.style.display = "inline";
         singleWordTranslation.style.display = "none";
         englishTranslationEntry.value = spanishKeyVocab[currentSingleSpanishWord][ENGLISH] || "";
+        englishTranslationEntry.focus();
     } else {
         editEnglishTranslation.innerHTML = "edit";
         englishTranslationEntry.style.display = "none";

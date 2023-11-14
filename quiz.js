@@ -14,6 +14,11 @@ startQuizButton.addEventListener("click", () => {
 quizButtonAdvanceFast.addEventListener("click", advanceQuizFast);
 quizButtonAdvanceSlow.addEventListener("click", advanceQuiz);
 
+quizPrompt.addEventListener("click", () => {
+    hideQuizDiv();
+    showSingleWordView(quizPrompt.innerHTML); 
+});
+
 function showQuizDiv() {
     quizDiv.style.display = "block";
     resetQuizButton();
@@ -31,6 +36,12 @@ function hideQuizDiv() {
 function resetQuizButton() {
     quizButtonAdvanceSlow.style.display = "none";
     quizButtonAdvanceFast.style.display = "inline";
+    quizButtonAdvanceFast.style.width = "60px";
+    quizButtonAdvanceFast.style.height = "60px";
+    setTimeout(() => {
+        quizButtonAdvanceFast.style.width = "100px";
+        quizButtonAdvanceFast.style.height = "100px";
+    }, 125);
     buttonChangeTimeout = setTimeout(() => {
         quizButtonAdvanceSlow.style.display = "inline";
         quizButtonAdvanceFast.style.display = "none";
@@ -50,7 +61,7 @@ function advanceQuiz() {
     let promptWord = quizPrompt.innerHTML;
     let timeQueue = spanishKeyVocab[promptWord].times || [];
     let newTime = Date.now() - lastButtonResetTime;
-    if (timeQueue.length >= MAX_TIME_QUEUE_LENGTH) timeQueue = timeQueue.shift();
+    if (timeQueue.length >= MAX_TIME_QUEUE_LENGTH) timeQueue.shift();
     timeQueue.push(newTime);
     spanishKeyVocab[promptWord].times = timeQueue;
     saveSpanishKeyVocab();
