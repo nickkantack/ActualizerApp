@@ -27,7 +27,7 @@ addVocabButton.addEventListener("click", () => {
 
 backToVocabList.addEventListener("click", () => {
     // Whatever's in the definition edit if we're editing, just save it
-    if (editEnglishTranslation.innerHTML = "save") toggleEnglishDefinitionEdit();
+    if (editEnglishTranslation.innerHTML === "save") toggleEnglishDefinitionEdit();
     // TODO consider doing the same for newly added sentences
     showVocabListDiv();
 });
