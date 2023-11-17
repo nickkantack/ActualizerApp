@@ -126,6 +126,8 @@ svg {
     position: absolute;
     left: 10px;
     top: 10px;
+    width: 3em;
+    height: 3em;
 }
 #quizButtonAdvanceSlow {
     width: 100px;
