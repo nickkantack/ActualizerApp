@@ -29,6 +29,7 @@ function showQuizDiv() {
 
 function hideQuizDiv() {
     quizDiv.style.display = "none";
+    refreshStatistics();
     // TODO consider showing a div to prompt for graduating words (or just redirecting to the graduation-
     // eligible words list view) if there are any words in newlyGraduatedKeysAsOfThisQuiz.
 }
