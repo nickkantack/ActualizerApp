@@ -27,6 +27,9 @@ svg {
     stroke: #FFF;
     background-color: #F00;
 }
+.editSentenceButton {
+    height: 4lh;
+}
 .focusedTextArea {
 
 }
