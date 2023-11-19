@@ -48,6 +48,7 @@ function addSentence(sentence) {
         textArea.style.display = "none";
     } else {
         editButton.style.display = "none";
+        lockedInDiv.style.display = "none";
         textArea.focus();
     }
     lockedInDiv.innerHTML = textArea.value;

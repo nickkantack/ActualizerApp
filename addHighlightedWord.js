@@ -16,6 +16,8 @@ document.addEventListener("mouseup", () => {
 });
 
 addHighlightedWordButton.addEventListener("click", () => {
-    addWordToTable(wordSuggestionSpan.innerHTML, true);
+    const newSpanishWord = wordSuggestionSpan.innerHTML;
+    spanishKeyVocab[newSpanishWord] = {ENGLISH:"",times:[],sentences:[]};
+    addWordToTable(newSpanishWord, true);
     addHighlightedWord.style.display = "none";
 });

@@ -17,7 +17,7 @@ addVocabButton.addEventListener("click", () => {
     }
     if (stagedWord === "") return;
     vocabInput.value = "";
-    spanishKeyVocab[stagedWord] = {ENGLISH:""};
+    spanishKeyVocab[stagedWord] = {ENGLISH:"",times:[]};
     refreshTableWithCachedWords();
     window.localStorage.setItem(SPANISH_KEY_VOCAB_KEY, JSON.stringify(spanishKeyVocab));
     showSingleWordView(stagedWord);
@@ -65,10 +65,10 @@ function addWordToTable(spanishWord) {
     newRow.querySelector(".vocabWordDisplayCell").addEventListener("click", () => {
         showSingleWordView(spanishWord);
     });
-    newRow.querySelector(".statsClass").innerHTML = spanishKeyVocab[spanishWord].hasOwnProperty(SENTENCES) ? 
+    newRow.querySelector(".statsClass").innerHTML = spanishKeyVocab[spanishWord] && spanishKeyVocab[spanishWord].hasOwnProperty(SENTENCES) ? 
         spanishKeyVocab[spanishWord][SENTENCES].length : 0;
     // Style the row as a graduatable word if so
-    if (isWordGraduationEligible(spanishWord)) newRow.querySelector(".vocabWordDisplayDiv").classList.add("graduationEligible");
+    if (spanishKeyVocab[spanishWord] && isWordGraduationEligible(spanishWord)) newRow.querySelector(".vocabWordDisplayDiv").classList.add("graduationEligible");
 
     vocabListTable.appendChild(newRow);
 }
@@ -99,7 +99,7 @@ function refreshStatistics() {
     // Update stats in each row
     for (let vocabDivInTable of vocabListTable.querySelectorAll(".vocabListRow")) {
         const spanishWord = vocabDivInTable.querySelector(".vocabWordDisplayDiv").innerHTML;
-        const sentenceCount = spanishKeyVocab[spanishWord].hasOwnProperty(SENTENCES) ? spanishKeyVocab[spanishWord][SENTENCES].length : 0;
+        const sentenceCount = spanishKeyVocab[spanishWord] && spanishKeyVocab[spanishWord].hasOwnProperty(SENTENCES) ? spanishKeyVocab[spanishWord][SENTENCES].length : 0;
         vocabDivInTable.querySelector(".statsClass").innerHTML = sentenceCount;
         if (isWordGraduationEligible(spanishWord)) { 
             vocabDivInTable.classList.add("graduationEligible");
