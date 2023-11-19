@@ -5,9 +5,11 @@ addSentenceButton.addEventListener("click", () => {
 
 function addSentence(sentence) {
     const newRow = sentencesTable.insertRow(sentencesTable.rows.length - 1);
-    const textArea = sentencesTextareaTemplate.content.cloneNode(true).querySelector("textarea");
+    const mainDiv = sentencesTextareaTemplate.content.cloneNode(true).querySelector("div");
+    const textArea = mainDiv.querySelector("textarea");
+    const lockedInDiv = mainDiv.querySelector("div.lockedInTextDiv");
     const cell = newRow.insertCell(0);
-    cell.appendChild(textArea);
+    cell.appendChild(mainDiv);
 
     const editButton = document.createElement("button");
 
@@ -15,8 +17,9 @@ function addSentence(sentence) {
         if (textArea.value === "") {
             newRow.remove(newRow.querySelector("tr"));
         } else {
-            textArea.classList.remove("focusedTextArea");
-            textArea.classList.add("unfocusedTextArea");
+            textArea.style.display = "none";
+            lockedInDiv.style.display = "block";
+            lockedInDiv.innerHTML = textArea.value;
             textArea.disabled = true;
             editButton.style.display = "block";
         }
@@ -28,8 +31,8 @@ function addSentence(sentence) {
     editButton.classList.add("editSentenceButton");
     editButton.innerHTML = "edit";
     editButton.addEventListener("click", () => {
-        textArea.classList.remove("unfocusedTextArea");
-        textArea.classList.add("focusedTextArea");
+        lockedInDiv.style.display = "none";
+        textArea.style.display = "block";
         textArea.disabled = false;
         textArea.focus();
         editButton.style.display = "none";
@@ -42,11 +45,12 @@ function addSentence(sentence) {
 
     if (sentence) {
         textArea.value = sentence;
-        textArea.classList.add("unfocusedTextArea");
-        textArea.disabled = true;
+        textArea.style.display = "none";
     } else {
+        editButton.style.display = "none";
         textArea.focus();
     }
+    lockedInDiv.innerHTML = textArea.value;
 }
 
 /*
